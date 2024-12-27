@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package objekwisata.app;
-
-import objek.wisata.app.setting.Koneksi;
+package objekwisata.app.setting;
 
 /**
  *
  * @author User
  */
-public class AplikasiObjekWisata {
-    Koneksi.getKoneksi();
+public class koneksi {
     
 }
