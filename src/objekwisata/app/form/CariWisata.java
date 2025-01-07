@@ -131,8 +131,8 @@ public class CariWisata extends javax.swing.JFrame {
         int row = jTable1.getSelectedRow();//ambil baris yang di pilih.
         Transaksi.textIDWisata.setText(jTable1.getValueAt(row, 0).toString());
         Transaksi.textNamaWisata.setText(jTable1.getValueAt(row, 1).toString());
-        Transaksi.textHargaTiket.setText(jTable1.getValueAt(row, 3).toString());
-        Transaksi.textStokTiket.setText(jTable1.getValueAt(row, 4).toString());
+        Transaksi.textHarga.setText(jTable1.getValueAt(row, 3).toString());
+        Transaksi.textStok.setText(jTable1.getValueAt(row, 4).toString());
         dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
