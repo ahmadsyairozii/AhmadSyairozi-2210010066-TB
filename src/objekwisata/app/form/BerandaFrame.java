@@ -5,6 +5,10 @@
  */
 package objekwisata.app.form;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author User
@@ -16,6 +20,7 @@ public class BerandaFrame extends javax.swing.JFrame {
      */
     public BerandaFrame() {
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -66,6 +71,11 @@ public class BerandaFrame extends javax.swing.JFrame {
         jMenu2.setText("Wisata");
 
         jMenuItem3.setText("WisataView");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("CariWisata");
@@ -95,6 +105,11 @@ public class BerandaFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        WisataView kv = new WisataView();
+        kv.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

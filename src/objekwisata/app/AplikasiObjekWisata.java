@@ -5,13 +5,18 @@
  */
 package objekwisata.app;
 
-import objekwisata.app.setting.Koneksi;
+import objekwisata.app.setting.koneksi;
 
 /**
  *
  * @author User
  */
 public class AplikasiObjekWisata {
-    Koneksi.getKoneksi();
     
+     /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        koneksi.getKoneksi();
+    }   
 }
