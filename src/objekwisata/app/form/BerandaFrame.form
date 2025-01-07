@@ -40,12 +40,12 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Penjualan"/>
+            <Property name="text" type="java.lang.String" value="Transaksi"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="PenjualanView"/>
+                <Property name="text" type="java.lang.String" value="TransaksiView"/>
               </Properties>
             </MenuItem>
           </SubComponents>

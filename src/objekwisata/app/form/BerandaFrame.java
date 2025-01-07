@@ -73,9 +73,9 @@ public class BerandaFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Penjualan");
+        jMenu3.setText("Transaksi");
 
-        jMenuItem5.setText("PenjualanView");
+        jMenuItem5.setText("TransaksiView");
         jMenu3.add(jMenuItem5);
 
         jMenuBar1.add(jMenu3);

@@ -5,7 +5,7 @@
  */
 package objekwisata.app;
 
-import objek.wisata.app.setting.Koneksi;
+import objekwisata.app.setting.Koneksi;
 
 /**
  *
