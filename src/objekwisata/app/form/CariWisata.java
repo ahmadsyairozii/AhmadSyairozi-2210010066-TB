@@ -5,6 +5,16 @@
  */
 package objekwisata.app.form;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import objekwisata.app.setting.koneksi;
+import objekwisata.app.form.Transaksi;
+
 /**
  *
  * @author User
@@ -16,7 +26,10 @@ public class CariWisata extends javax.swing.JFrame {
      */
     public CariWisata() {
         initComponents();
+        tampilData();
     }
+    Connection conn = koneksi.getKoneksi();
+    PreparedStatement pst; //preparedStatement untuk eksekusi query sql
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,7 +41,6 @@ public class CariWisata extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -36,10 +48,8 @@ public class CariWisata extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("FORM CARI DATA WISATA");
+        jPanel1.setBackground(new java.awt.Color(0, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "FORM CARI DATA WISATA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel5.setText("Cari Data Wisata Berdasarkan nama Wisata");
@@ -74,12 +84,8 @@ public class CariWisata extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(33, 33, 33)
@@ -91,11 +97,9 @@ public class CariWisata extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(128, 128, 128)
+                .addGap(183, 183, 183)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(141, 141, 141)
@@ -125,10 +129,10 @@ public class CariWisata extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();//ambil baris yang di pilih.
-        TransaksiView.textIDWisata.setText(jTable1.getValueAt(row, 0).toString());
-        TransaksiView.textNamaWisata.setText(jTable1.getValueAt(row, 1).toString());
-        TransaksiView.textHargaTiket.setText(jTable1.getValueAt(row, 3).toString());
-        TransaksiView.textStokTiket.setText(jTable1.getValueAt(row, 4).toString());
+        Transaksi.textIDWisata.setText(jTable1.getValueAt(row, 0).toString());
+        Transaksi.textNamaWisata.setText(jTable1.getValueAt(row, 1).toString());
+        Transaksi.textHargaTiket.setText(jTable1.getValueAt(row, 3).toString());
+        Transaksi.textStokTiket.setText(jTable1.getValueAt(row, 4).toString());
         dispose();
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -168,11 +172,32 @@ public class CariWisata extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+//method untuk tampil data
+    private void tampilData(){
+      try {
+            String[] judul = {"ID", "Nama Wisata", "Kategori Wisata", "Harga Tiket", "Stok Tiket"};
+            DefaultTableModel dtm = new DefaultTableModel(null, judul);
+            jTable1.setModel(dtm);
+            String sql = "select * from wisata";
+            if(!jTextField4.getText().isEmpty()){
+                sql = "select * from wisata where nama_wisata "
+                    + "like '%" + jTextField4.getText() + "%'";
+            }
+            pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                String[] data = {rs.getString(1),
+                    rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)};
+                dtm.addRow(data);  
+            } } catch (SQLException ex) {
+            Logger.getLogger(PelangganView.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
 }
